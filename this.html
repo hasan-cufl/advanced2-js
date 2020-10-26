@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion about "this" keyword</title>
+</head>
+<body>
+    <h1>"this" is not confused anymore</h1>
+    <p onclick="this.innerText = 'You are clicked'">I am a paragraph. Don't click me.</p>
+    <script>
+        const myObject = {
+            name: "Abdul Quddus",
+            address: "Chittagong",
+            phone: 2344,
+
+            getFullName: function(){
+                console.log(this);
+                return 'Mr. ' +this.name;
+            }
+        }
+        // myObject.getFullName();
+        const anotherObject = {
+            name: "Abdul Jabbar",
+            address: "Rajshahi",
+            phone: 6665
+        }
+
+        // Example
+        anotherObject.getFullName = myObject.getFullName;
+        console.log(anotherObject.getFullName);
+
+        anotherObject.getFullName();
+        myObject.getFullName();
+
+        // Example
+        function add(a, b){  //Expected value of "this" is "window".
+            console.log(this);
+            return a + b;
+        }
+        add(12, 13);
+
+        // Example
+        anotherObject.sum = add;
+        anotherObject.sum();  //Expected value of "this" is "add".
+
+        // Example
+        setTimeout(function(){ //Expected value of "this" is "window".
+            console.log(this);
+        },1000)
+    </script>
+</body>
+</html>
